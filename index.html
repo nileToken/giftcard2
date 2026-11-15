@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Gift Card Generator</title>
+    <script>
+        // Function to generate a random gift card number
+        function generateCardNumber() {
+            return Math.floor(Math.random() * 10000000000000000).toString();
+        }
+
+        // Function to validate the card number (simple length check)
+        function validateCardNumber(number) {
+            return number.length === 16;
+        }
+
+        // Function to generate a virtual card
+        function generateCard(type) {
+            const cardNumber = generateCardNumber();
+            if (validateCardNumber(cardNumber)) {
+                const balance = (Math.random() * 100).toFixed(2); // generates a random balance
+                return { number: cardNumber, type: type, balance: balance };
+            }
+            return null;
+        }
+
+        // Function to display card information
+        function displayCard(card) {
+            const cardInfo = `Card Type: ${card.type} \n Card Number: ${card.number} \n Balance: $${card.balance}`;
+            alert(cardInfo);
+        }
+
+        // Function to handle generating cards
+        function createCard() {
+            const cardType = document.querySelector('input[name="cardType"]:checked').value;
+            const card = generateCard(cardType);
+            if (card) {
+                displayCard(card);
+            } else {
+                alert('Failed to generate a valid card.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Virtual Gift Card Generator</h1>
+    <p>Select card type:</p>
+    <input type="radio" name="cardType" value="Visa" checked> Visa<br>
+    <input type="radio" name="cardType" value="Mastercard"> Mastercard<br>
+    <button onclick="createCard()">Generate Card</button>
+</body>
+</html>
